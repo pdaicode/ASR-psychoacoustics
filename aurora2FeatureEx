@@ -1,0 +1,47 @@
+addpath /h/146/work/toolbox/voicebox_20Sep2010 % voicebox toolkit
+
+clear all
+close all
+
+homedir = ['/h/146/work/AURORA2/features/a-task1/'];
+speechdir=['/w/122/AURORA2/speechdata/'];
+
+t=cputime;
+fs=8000;
+w='MedDp';
+nc=12;
+p=23;
+n=128;
+D1=dir([speechdir]);
+
+tic
+for n1=size(D1,1):-1:3%3:size(D1,1)
+    filename1=D1(n1).name;
+    eval(['!mkdir ' [homedir, filename1]]);
+    D2=dir([speechdir, filename1]);
+    for n2=3:size(D2,1)
+        filename2=D2(n2).name;
+        eval(['!mkdir ' [homedir, filename1,'/',filename2]]);
+        D3=dir([speechdir,filename1,'/',filename2]);
+%%%%%%%%%%%%%%%%%%%%%
+        disp([homedir,filename1,'/',filename2,'/']);
+%%%%%%%%%%%%%%%%%%%%%
+        for n3=3:size(D3,1);
+            filename3=D3(n3).name;
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+            fid1=fopen([speechdir,filename1,'/',filename2,'/',filename3],'r');
+            [s,l]=fread(fid1,inf,'int16');
+%----------------------------------------------------------------------
+%           to perform twoDfilter and get the modified mfcc
+%----------------------------------------------------------------------
+            c=melcepst(s,fs,w,nc,p,n);% @
+%----------------------------------------------------------------------
+            filename3=[filename3(1:end-3)];
+            writehtk([homedir,filename1,'/',filename2,'/',filename3],c,0.01,838);   % WRITEHTK write data in HTK format []=(FILE,D,FP,TC)
+            fclose(fid1);                                                           % correspond to the former fopen
+        end
+    end
+end
+
+
+toc;
