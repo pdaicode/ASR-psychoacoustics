@@ -1,6 +1,5 @@
 psychoacoustics
 ===============
 
-psychoacoustic filter sample codes
+This repository contains MATLAB source code and scripts of the psychoacoustic filters I developed in my PhD thesis
 
-Demo script for the implementation of psychoacoustic filters
