@@ -3,8 +3,8 @@ addpath /h/146/work/toolbox/voicebox_20Sep2010 % voicebox toolkit
 clear all
 close all
 
-homedir = ['/h/146/work/AURORA2/features/a-task1/'];
-speechdir=['/w/122/AURORA2/speechdata/'];
+homedir = ['/h/work/AURORA2/features/a-task1/'];
+speechdir=['/w/AURORA2/speechdata/'];
 
 t=cputime;
 fs=8000;
